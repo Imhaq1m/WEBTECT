@@ -1,0 +1,73 @@
+<!-- checkout.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+
+  <!-- Main Content -->
+  <main>
+    <h1>Checkout</h1>
+
+    <!-- Payment Method -->
+    <p>Select Payment Method:</p>
+    <select id="payment-method">
+      <option value="qr-code">QR Code Payment</option>
+      <option value="cash">Cash Payment (Self-Pickup Only)</option>
+    </select>
+
+    <!-- Receipt Upload -->
+    <p>Upload Receipt:</p>
+    <input type="file" id="receipt-file">
+
+    <!-- Price Breakdown -->
+    <h2>Order Summary</h2>
+    <p>Subtotal: $<span id="subtotal">0</span></p>
+    <p>Shipping: $<span id="shipping-cost">0</span></p>
+    <p>Total: $<span id="total-price">0</span></p>
+
+    <!-- Action Buttons -->
+    <button onclick="confirmPayment()">Confirm Payment</button>
+    <button onclick="cancelPayment()">Cancel</button>
+  </main>
+
+  <script>
+    // Retrieve cart data from localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let subtotal = 0;
+
+    // Calculate subtotal
+    cart.forEach(item => {
+      subtotal += item.price * item.quantity;
+    });
+
+    // Shipping cost logic
+    const shippingMethod = localStorage.getItem('shipping-method') || 'self-pickup';
+    const shippingCost = shippingMethod === 'delivery' ? 5 : 0;
+
+    // Total price calculation
+    const total = subtotal + shippingCost;
+
+    // Display values on the page
+    document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+    document.getElementById('shipping-cost').innerText = shippingCost.toFixed(2);
+    document.getElementById('total-price').innerText = total.toFixed(2);
+
+    // Confirm Payment
+    function confirmPayment() {
+      alert("Payment successful!");
+      window.location.href = "checkout-done.html";
+    }
+
+    // Cancel Payment
+    function cancelPayment() {
+      window.location.href = "cart.html";
+    }
+  </script>
+</body>
+</html>

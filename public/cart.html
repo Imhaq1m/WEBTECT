@@ -1,0 +1,132 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="product.html">Residence Mart</a>
+      </div>
+      <nav class="center-nav">
+        <select id="categories" onchange="filterProducts()">
+          <option value="">All Categories</option>
+          <option value="food-beverages">Food & Beverages</option>
+          <option value="personal-care">Personal Care</option>
+          <option value="household-essential">Household Essential</option>
+          <option value="stationery">Stationery</option>
+          <option value="electronics">Electronics</option>
+          <option value="health-wellness">Health & Wellness</option>
+        </select>
+        <a href="about-us.html">About Us</a>
+        <a href="contact.html">Contact/Feedback</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+      <div class="user-profile">
+        <a href="user-profile.html">
+          <img src="user-icon.png" alt="User Profile" width="30" height="30">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h1>Your Cart</h1>
+    <div class="cart-items">
+      <h2>Cart Items</h2>
+      <div id="cart-items-list"></div>
+    </div>
+    <div class="cart-summary">
+      <h2>Summary</h2>
+      <p>Total Products: <span id="total-products">0</span></p>
+      <p>Subtotal: $<span id="subtotal">0</span></p>
+      <p>Shipping: 
+        <select id="shipping-method">
+          <option value="self-pickup">Self-Pickup (Free)</option>
+          <option value="delivery">Delivery ($5)</option>
+        </select>
+      </p>
+      <p class="summary-total">Total: $<span id="total-price">0</span></p>
+      <button onclick="checkout()">Continue to Checkout</button>
+    </div>
+  </main>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsList = document.getElementById('cart-items-list');
+    let subtotal = 0;
+
+    function renderCart() {
+      cartItemsList.innerHTML = ''; // Clear previous listings
+      subtotal = 0;
+
+      cart.forEach(item => {
+        subtotal += item.price * item.quantity;
+        cartItemsList.innerHTML += `
+          <div class="cart-item">
+            <span>${item.name} ($${item.price})</span>
+            <div>
+              <button onclick="updateQuantity('${item.id}', -1)">-</button>
+              <span>${item.quantity}</span>
+              <button onclick="updateQuantity('${item.id}', 1)">+</button>
+              <button onclick="removeItem('${item.id}')">Remove</button>
+            </div>
+          </div>
+        `;
+      });
+
+      document.getElementById('total-products').innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById('subtotal').innerText = subtotal.toFixed(2);
+      updateTotal();
+    }
+
+    function updateQuantity(productId, change) {
+      const index = cart.findIndex(item => item.id === productId);
+      if (index !== -1) {
+        cart[index].quantity += change;
+
+        // Ensure quantity doesn't go below 0
+        if (cart[index].quantity < 0) {
+          cart[index].quantity = 0;
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    function removeItem(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function updateTotal() {
+      const shippingMethod = document.getElementById('shipping-method').value;
+      const shippingCost = shippingMethod === 'delivery' ? 5 : 0;
+      const total = subtotal + shippingCost;
+      document.getElementById('total-price').innerText = total.toFixed(2);
+    }
+
+    document.getElementById('shipping-method').addEventListener('change', updateTotal);
+
+    function checkout() {
+      if (cart.length === 0 || cart.every(item => item.quantity === 0)) {
+        alert("Your cart is empty!");
+      } else {
+        window.location.href = "checkout.html";
+      }
+    }
+
+    // Initial render of the cart
+    renderCart();
+  </script>
+</body>
+</html>

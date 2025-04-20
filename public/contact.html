@@ -1,0 +1,61 @@
+<!-- contact-feedback.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="product.html">Residence Mart</a>
+      </div>
+      <nav class="center-nav">
+        <select id="categories" onchange="filterProducts()">
+          <option value="">All Categories</option>
+          <option value="food-beverages">Food & Beverages</option>
+          <option value="personal-care">Personal Care</option>
+          <option value="household-essential">Household Essential</option>
+          <option value="stationery">Stationery</option>
+          <option value="electronics">Electronics</option>
+          <option value="health-wellness">Health & Wellness</option>
+        </select>
+        <a href="about-us.html">About Us</a>
+        <a href="contact.html">Contact/Feedback</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+      <div class="user-profile">
+        <a href="user-profile.html">
+          <img src="user-icon.png" alt="User Profile" width="30" height="30">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h1>Contact Us</h1>
+    <form onsubmit="submitFeedback(event)">
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" placeholder="Enter subject" required>
+      <label for="message">Message:</label>
+      <textarea id="message" rows="5" placeholder="Enter your message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <p>Contact Information:</p>
+    <p>Phone: 123-456-7890</p>
+    <p>Email: mart@example.com</p>
+  </main>
+
+  <script>
+    function submitFeedback(event) {
+      event.preventDefault();
+      alert("Thank you for your feedback!");
+    }
+  </script>
+</body>
+</html>

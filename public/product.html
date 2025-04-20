@@ -1,0 +1,87 @@
+<!-- product-page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <a href="product-page.html">Residence Mart</a>
+      </div>
+      <nav class="center-nav">
+        <select id="categories" onchange="filterProducts()">
+          <option value="">All Categories</option>
+          <option value="food-beverages">Food & Beverages</option>
+          <option value="personal-care">Personal Care</option>
+          <option value="household-essential">Household Essential</option>
+          <option value="stationery">Stationery</option>
+          <option value="electronics">Electronics</option>
+          <option value="health-wellness">Health & Wellness</option>
+        </select>
+        <a href="about-us.html">About Us</a>
+        <a href="contact.html">Contact/Feedback</a>
+        <a href="cart.html">Cart</a>
+      </nav>
+      <div class="user-profile">
+        <a href="user-profile.html">
+          <img src="user-icon.png" alt="User Profile" width="30" height="30">
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <h1>Products</h1>
+    <div id="product-list"></div>
+  </main>
+
+  <script src="json-product.json"></script>
+  <script>
+    let allProducts = [];
+
+    fetch('json-product.json')
+      .then(response => response.json())
+      .then(data => {
+        allProducts = data;
+        displayProducts(allProducts);
+      });
+
+    function displayProducts(products) {
+      const productList = document.getElementById('product-list');
+      productList.innerHTML = '';
+
+      products.forEach(product => {
+        productList.innerHTML += `
+          <div class="product" onclick="viewProduct('${product.id}')">
+            <img src="${product.image}" alt="${product.name}" width="100">
+            <p>${product.name}</p>
+            <p>$${product.price}</p>
+          </div>
+        `;
+      });
+    }
+
+    function filterProducts() {
+      const selectedCategory = document.getElementById('categories').value;
+
+      if (selectedCategory === "") {
+        displayProducts(allProducts);
+      } else {
+        const filteredProducts = allProducts.filter(product => product.category === selectedCategory);
+        displayProducts(filteredProducts);
+      }
+    }
+
+    function viewProduct(productId) {
+      window.location.href = `product-detail.html?id=${productId}`;
+    }
+  </script>
+</body>
+</html>

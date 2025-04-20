@@ -1,0 +1,65 @@
+[
+  {
+    "id": "1",
+    "name": "Bread",
+    "price": 2.5,
+    "image": "bread.jpg",
+    "description": "Freshly baked bread.",
+    "stock": 50,
+    "category": "food-beverages"
+  },
+  {
+    "id": "2",
+    "name": "Milk",
+    "price": 1.8,
+    "image": "milk.jpg",
+    "description": "Fresh milk from local farms.",
+    "stock": 100,
+    "category": "food-beverages"
+  },
+  {
+    "id": "3",
+    "name": "Toothpaste",
+    "price": 3.0,
+    "image": "toothpaste.jpg",
+    "description": "Fluoride toothpaste for strong teeth.",
+    "stock": 40,
+    "category": "personal-care"
+  },
+  {
+    "id": "4",
+    "name": "Detergent",
+    "price": 5.5,
+    "image": "detergent.jpg",
+    "description": "Powerful detergent for laundry.",
+    "stock": 30,
+    "category": "household-essential"
+  },
+  {
+    "id": "5",
+    "name": "Notebook",
+    "price": 1.2,
+    "image": "notebook.jpg",
+    "description": "A5 size notebook for writing.",
+    "stock": 60,
+    "category": "stationery"
+  },
+  {
+    "id": "6",
+    "name": "Headphones",
+    "price": 25.0,
+    "image": "headphones.jpg",
+    "description": "Noise-canceling headphones.",
+    "stock": 15,
+    "category": "electronics"
+  },
+  {
+    "id": "7",
+    "name": "Vitamin C",
+    "price": 9.9,
+    "image": "vitamin-c.jpg",
+    "description": "Boost your immune system with Vitamin C.",
+    "stock": 25,
+    "category": "health-wellness"
+  }
+]
