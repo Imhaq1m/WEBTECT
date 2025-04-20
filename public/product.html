@@ -12,7 +12,9 @@
   <header>
     <div class="header-container">
       <div class="logo">
-        <a href="product-page.html">Residence Mart</a>
+        <a href="pre-sign-in.html">
+          <i class="fas fa-store"></i> Residence Mart
+        </a>
       </div>
       <nav class="center-nav">
         <select id="categories" onchange="filterProducts()">
@@ -24,13 +26,12 @@
           <option value="electronics">Electronics</option>
           <option value="health-wellness">Health & Wellness</option>
         </select>
-        <a href="about-us.html">About Us</a>
-        <a href="contact.html">Contact/Feedback</a>
-        <a href="cart.html">Cart</a>
+        <a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a>
+        <a href="contact.html"><i class="fas fa-envelope"></i> Contact/Feedback</a>
       </nav>
       <div class="user-profile">
-        <a href="user-profile.html">
-          <img src="user-icon.png" alt="User Profile" width="30" height="30">
+        <a href="sign-in.html">
+          <i class="fas fa-user"></i>
         </a>
       </div>
     </div>
@@ -39,7 +40,7 @@
   <!-- Main Content -->
   <main>
     <h1>Products</h1>
-    <div id="product-list"></div>
+    <div id="product-list" class="product-grid"></div>
   </main>
 
   <script src="json-product.json"></script>
@@ -60,7 +61,7 @@
       products.forEach(product => {
         productList.innerHTML += `
           <div class="product" onclick="viewProduct('${product.id}')">
-            <img src="${product.image}" alt="${product.name}" width="100">
+            <img src="${product.image}" alt="${product.name}" width="150">
             <p>${product.name}</p>
             <p>$${product.price}</p>
           </div>
